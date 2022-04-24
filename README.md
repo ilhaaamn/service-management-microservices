@@ -16,4 +16,4 @@ In this microservice, there is still much that can be improved, starting from se
 
 # Tech Stach
 
-`Liquibase`, `PostgreSql`, `Mapstruc`, `Eureka`,`Querydsl`,`Swagger Open API`.
+`Spring Boot`,`Liquibase`, `PostgreSql`, `Mapstruc`, `Eureka`,`Querydsl`,`Swagger Open API`.
