@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <property name="uuid_function" value="gen_random_uuid()" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="postgresql, h2, oracle"/>
+
+    <include file="db/changelog/23-01-2022.xml" relativeToChangelogFile="false"/>
+</databaseChangeLog>

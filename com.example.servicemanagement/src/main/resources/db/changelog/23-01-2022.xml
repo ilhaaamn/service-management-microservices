@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <changeSet id="23-01-2022" author="hamnoer22@gmail.com">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="technician"/>
+            </not>
+            <not>
+                <tableExists tableName="brand"/>
+            </not>
+            <not>
+                <tableExists tableName="service_ticket"/>
+            </not>
+            <not>
+                <tableExists tableName="service_type"/>
+            </not>
+            <not>
+                <tableExists tableName="customer"/>
+            </not>
+        </preConditions>
+        <createTable tableName="technician">
+            <column name="technician_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="brand_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="platform" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_queue" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="brand">
+            <column name="brand_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="customer">
+            <column name="customer_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar2(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_no" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="service_type">
+            <column name="service_type_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time_required" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="service_ticket">
+            <column name="service_ticket_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="technician_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="brand_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_type_id" type="${uuidType}" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="brand_id"
+                                 baseTableName="technician"
+                                 constraintName="fk_brand_id_technician"
+                                 referencedColumnNames="brand_id"
+                                 referencedTableName="brand"/>
+
+        <addForeignKeyConstraint baseColumnNames="technician_id"
+                                 baseTableName="service_ticket"
+                                 constraintName="fk_technician_id_service_ticket"
+                                 referencedColumnNames="technician_id"
+                                 referencedTableName="technician"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="service_ticket"
+                                 constraintName="fk_customer_id_service_ticket"
+                                 referencedColumnNames="customer_id"
+                                 referencedTableName="customer"/>
+
+        <addForeignKeyConstraint baseColumnNames="service_type_id"
+                                 baseTableName="service_ticket"
+                                 constraintName="fk_service_type_id_service_ticket"
+                                 referencedColumnNames="service_type_id"
+                                 referencedTableName="service_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="brand_id"
+                                 baseTableName="service_ticket"
+                                 constraintName="fk_brand_id_service_ticket"
+                                 referencedColumnNames="brand_id"
+                                 referencedTableName="brand"/>
+        <rollback>
+            <dropTable tableName="technician"/>
+            <dropTable tableName="brand"/>
+            <dropTable tableName="customer"/>
+            <dropTable tableName="service_type"/>
+            <dropTable tableName="service_ticket"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="23-01-2022-1" author="hamnoer22@gmail.com">
+        <addColumn tableName="brand">
+            <column name="platform" type="varchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
