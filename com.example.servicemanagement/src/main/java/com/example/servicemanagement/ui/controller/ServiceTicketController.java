@@ -7,6 +7,7 @@ import com.example.servicemanagement.ui.api.ApiContract;
 import com.example.servicemanagement.ui.controller.common.AbstractController;
 import com.example.servicemanagement.ui.model.TransitionRequest;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public class ServiceTicketController extends AbstractController<ServiceTicket, S
     }
 
     @PostMapping("/transition")
-    public ServiceTicketDTO transition(TransitionRequest transitionRequest) {
+    public ServiceTicketDTO transition(@RequestBody TransitionRequest transitionRequest) {
         return service.transition(transitionRequest);
     }
 }

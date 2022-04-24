@@ -78,11 +78,11 @@ public class ServiceTicketServiceImpl extends AbstractEntityServiceImpl<ServiceT
     }
 
     private void validateTransition(TransitionRequest transitionRequest, ServiceTicketDTO serviceTicketDTO) {
-        if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.PENDING_QUEUE.name()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.ASSIGNED.name())) {
+        if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.PENDING_QUEUE.getStatus()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.ASSIGNED.getStatus())) {
             throw new IllegalArgumentException("ServiceTicket can't be in PENDING_QUEUE status and transition to " + transitionRequest.getTransitionName());
-        } else if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.ASSIGNED.name()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.IN_PROGRESS.name())) {
+        } else if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.ASSIGNED.getStatus()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.IN_PROGRESS.getStatus())) {
             throw new IllegalArgumentException("ServiceTicket can't be in ASSIGNED status and transition to " + transitionRequest.getTransitionName());
-        } else if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.IN_PROGRESS.name()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.COMPLETED.name())) {
+        } else if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.IN_PROGRESS.getStatus()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.COMPLETED.getStatus())) {
             throw new IllegalArgumentException("ServiceTicket can't be in IN_PROGRESS status and transition to " + transitionRequest.getTransitionName());
         }
     }
