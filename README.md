@@ -1,5 +1,13 @@
 # Phone Service Management
 
+A Microservice for managing Phone Service Counter queue and business process.
+
+# How To Run
+
+1. Run EurekaServer
+2. Run ServiceManagement
+3. Run ServiceManagementCoreV2
+
 # Personal Note
 
 Here is a microservice that I have created related to Take Home Test which is sent via email.
