@@ -1,5 +1,6 @@
 package com.example.servicemanagementcorev2.controller;
 
+import com.example.servicemanagementcorev2.model.TransitionRequest;
 import com.example.servicemanagementcorev2.service.ServiceTicketService;
 import com.example.servicemanagementcorev2.service.dto.ServiceTicketDTO;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,5 +25,10 @@ public class ServiceTicketClientController {
     @PostMapping("/serviceTicket/updateTicket")
     public ServiceTicketDTO updateServiceTicket(@RequestBody ServiceTicketDTO serviceTicketDTO) throws IOException {
         return serviceTicketService.updateTicket(serviceTicketDTO);
+    }
+
+    @PostMapping("/serviceTicket/transitionTicket")
+    public ServiceTicketDTO transitionTicket(@RequestBody TransitionRequest transitionRequest) throws IOException {
+        return serviceTicketService.transitionTicket(transitionRequest);
     }
 }

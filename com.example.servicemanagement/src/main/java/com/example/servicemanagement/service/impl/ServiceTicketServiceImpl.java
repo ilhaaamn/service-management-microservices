@@ -11,6 +11,8 @@ import com.example.servicemanagement.service.dto.CustomerDTO;
 import com.example.servicemanagement.service.dto.ServiceTicketDTO;
 import com.example.servicemanagement.service.dto.filter.ServiceTicketFilterDTO;
 import com.example.servicemanagement.service.mapper.ServiceTicketMapper;
+import com.example.servicemanagement.ui.model.TransitionRequest;
+import com.example.servicemanagement.util.TicketStatusEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -63,6 +65,26 @@ public class ServiceTicketServiceImpl extends AbstractEntityServiceImpl<ServiceT
                         new EntityNotFoundException("Technician not found with id: "
                                 + dto.getTechnician().getId())));
         return super.update(dto);
+    }
+
+    @Override
+    public ServiceTicketDTO transition(TransitionRequest transitionRequest) {
+        ServiceTicketDTO serviceTicketDTO = findOne(transitionRequest.getId()).orElseThrow(() ->
+                new EntityNotFoundException("ServiceTicket not found with id: " + transitionRequest.getId())
+        );
+        validateTransition(transitionRequest, serviceTicketDTO);
+        serviceTicketDTO.setStatus(transitionRequest.getTransitionName());
+        return super.update(serviceTicketDTO);
+    }
+
+    private void validateTransition(TransitionRequest transitionRequest, ServiceTicketDTO serviceTicketDTO) {
+        if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.PENDING_QUEUE.name()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.ASSIGNED.name())) {
+            throw new IllegalArgumentException("ServiceTicket can't be in PENDING_QUEUE status and transition to " + transitionRequest.getTransitionName());
+        } else if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.ASSIGNED.name()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.IN_PROGRESS.name())) {
+            throw new IllegalArgumentException("ServiceTicket can't be in ASSIGNED status and transition to " + transitionRequest.getTransitionName());
+        } else if (serviceTicketDTO.getStatus().equals(TicketStatusEnum.IN_PROGRESS.name()) && !transitionRequest.getTransitionName().equals(TicketStatusEnum.COMPLETED.name())) {
+            throw new IllegalArgumentException("ServiceTicket can't be in IN_PROGRESS status and transition to " + transitionRequest.getTransitionName());
+        }
     }
 
     private void validateMainData(ServiceTicketDTO serviceTicketRequest) {

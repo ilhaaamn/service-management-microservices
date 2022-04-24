@@ -1,5 +1,6 @@
 package com.example.servicemanagementcorev2.service;
 
+import com.example.servicemanagementcorev2.model.TransitionRequest;
 import com.example.servicemanagementcorev2.service.dto.ServiceTicketDTO;
 
 import java.io.IOException;
@@ -10,4 +11,7 @@ public interface ServiceTicketService {
 
     //Update ticket
     ServiceTicketDTO updateTicket(ServiceTicketDTO request) throws IOException;
+
+    //Transition Ticket
+    ServiceTicketDTO transitionTicket(TransitionRequest request) throws IOException;
 }
