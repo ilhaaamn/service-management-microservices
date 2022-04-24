@@ -1,3 +1,0 @@
-Berikut adalah microservice yang telah saya buat berkaitan dengan Take Home Test yang dikirimkan melalui email.
-
-Dalam microservice ini masih banyak yang bisa di improve, mulai dari segi security, auditing, dan dari segi ticket transaction misalnya dengan Camunda Workflow sehingga transitioning dari masing-masing ticket bisa lebih jelas dan lebih terstruktur. 
