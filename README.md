@@ -2,11 +2,11 @@
 
 A Microservice for managing Phone Service Counter queue and business process.
 
-# How To Run
+# How To Run and Use
 
 1. Run EurekaServer
-2. Run ServiceManagement
-3. Run ServiceManagementCoreV2
+2. Run ServiceManagement -> Swagger UI can be accessed using http://localhost:8090/swagger-ui.html
+3. Run ServiceManagementCoreV2 -> Swagger UI can be accessed using http://localhost:8091/swagger-ui.html
 
 # Personal Note
 
