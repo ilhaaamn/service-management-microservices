@@ -2,6 +2,12 @@
 
 A Microservice for managing Phone Service Counter queue and business process.
 
+List of Services:
+
+1. EurekaServer -> A Eureka Server for Managing Available Microservices
+2. ServiceManagement -> A Microservice for Master Data API to handle CRUD to master data
+3. ServiceManagementCoreV2 -> A Microservice for handling data modification and process logic.
+
 # How To Run and Use
 
 1. Run EurekaServer -> Eureka Dashboard can be accessed using http://localhost:8761
